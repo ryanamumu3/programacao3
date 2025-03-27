@@ -7,7 +7,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>Ruan Nasciento Monteiro da Silva</Text>
       <Text>Emily vitoria do nascimento arruda</Text>
-      <text>Gustavo Da Silva Araújo</text>
+      <Text>Gustavo Da Silva Araújo</Text>
       <StatusBar style="auto" />
     </View>
   );
