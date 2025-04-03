@@ -8,7 +8,7 @@ import { Button } from 'react-native-elements';
 
 
 
-export default function login() {
+function login() {
   return (
     <View style={styles.container}>
       <Avatar
@@ -55,19 +55,48 @@ export default function login() {
 function cadastro() {
   return (
     <View style={styles.container}>
-      <Text>Ruan Nasciento Monteiro da Silva</Text>
-      <Text>Emily vitoria do nascimento arruda</Text>
-      <Text>Gustavo Da Silva Araújo</Text>
+      <Text>CADASTRO</Text>
+      <Input
+        placeholder='Nome'
+        leftIcon={
+          <Icon
+            name='user'
+            size={24}
+            color='black'
+          />
+        }
+      />
+      <Input
+        placeholder='Email'
+        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
+      />
+       <Input
+        placeholder='Senha'
+        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
+      />
+
+        <Button
+          title="Cadastro"
+          type="outline"
+        />
+
       <StatusBar style="auto" />
     </View>
   );
 }
-function EsqueciSenha() {
+export default function EsqueciSenha() {
   return (
     <View style={styles.container}>
-      <Text>Ruan Nasciento Monteiro da Silva</Text>
-      <Text>Emily vitoria do nascimento arruda</Text>
-      <Text>Gustavo Da Silva Araújo</Text>
+      <Text>Esqueci Senha</Text>
+      <Input
+        placeholder='Email'
+        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
+      />
+      <Button
+          title="Enviar"
+          type="outline"
+     />
+
       <StatusBar style="auto" />
     </View>
   );
