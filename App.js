@@ -12,6 +12,7 @@ function login() {
   return (
     <View style={styles.container}>
       <Avatar
+      size ='large'
         rounded
         source={{
           uri:
@@ -38,7 +39,7 @@ function login() {
   title="Login"
   type="outline"
 />
-
+<Text> </Text>
 <Button
   title="cadastro"
   type="outline"
@@ -83,8 +84,7 @@ function cadastro() {
       <StatusBar style="auto" />
     </View>
   );
-}
-export default function EsqueciSenha() {
+}export default  function EsqueciSenha() {
   return (
     <View style={styles.container}>
       <Text>Esqueci Senha</Text>
