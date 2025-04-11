@@ -1,111 +1,139 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
-import { Avatar } from 'react-native-elements';
-import { Button } from 'react-native-elements';
+import React from "react";
+import { View, Text, Button } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
 
 
-
-function login() {
+function telaInicial() {
   return (
-    <View style={styles.container}>
-      <Avatar
-      size ='large'
-        rounded
-        source={{
-          uri:
-            'https://gravatar.com/avatar/18c338175b071639248bc3345d3ecb8c?s=400&d=robohash&r=x',
-        }}
-      />
-      <Input
-        placeholder='Email'
-        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-      />
-
-      <Input
-        placeholder='Senha'
-        leftIcon={
-          <Icon
-            name='user'
-            size={24}
-            color='black'
-          />
-        }
-      />
-      
-      <Button
-  title="Login"
-  type="outline"
-/>
-<Text> </Text>
-<Button
-  title="cadastro"
-  type="outline"
-/>
-<Button
-  title="esqueceu senha?"
-  type="clear"
-/>
-      <StatusBar style="auto" />
+    <View>
+      <Text>Tela Inicial</Text>
     </View>
-
   );
 }
+
+function telaLogin({ navigation }) {
+  return (
+    <View>
+      <input placeholder="Login"/>
+      <br/>
+      <input placeholder="Senha"/>
+      <br/>
+      <Button title="cadastro" onPress={() => navigation.navigate("cadastro")}/>
+        <br/>
+      <Button title="login" onPress={() => navigation.navigate("home")} />
+    </View>
+  );
+}
+
+function homeScreen({ navigation }) {
+  const contatos = [
+    { id: 1, nome: "Ryan Nascimento", telefone: "(81) 91111-2222" },
+    { id: 2, nome: "Gustavo da Silva", telefone: "(81) 99999-8888" },
+    { id: 3, nome: "Emily Vitória", telefone: "(81) 94002-8922" },
+  ];
+
+  return (
+    <View>
+      {contatos.map((contato) => (
+        <View key={contato.id}>
+          <Text>Nome: {contato.nome}</Text>
+          <Text>Telefone: {contato.telefone}</Text>
+          <Button
+            title="Ver detalhes"
+            onPress={() => navigation.navigate("alterarContato", { contato })}
+          />
+        </View>
+      ))}
+    </View>
+  );
+}
+
+
 function cadastro() {
   return (
-    <View style={styles.container}>
-      <Text>CADASTRO</Text>
-      <Input
-        placeholder='Nome'
-        leftIcon={
-          <Icon
-            name='user'
-            size={24}
-            color='black'
-          />
-        }
-      />
-      <Input
-        placeholder='Email'
-        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-      />
-       <Input
-        placeholder='Senha'
-        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-      />
-
-        <Button
-          title="Cadastro"
-          type="outline"
-        />
-
-      <StatusBar style="auto" />
+    <View>
+      <input placeholder="Nome"/>
+      <br/>
+      <input placeholder="CPF"/>
+      <br/>
+      <input placeholder="Email"/>
+      <br/>
+      <input placeholder="Senha"/>
+      <br/>
+      
+        <br/>
+      <Button title="Salvar" 
+       onPress={() => navigation.navigate("salvar", { homeScreen })}/>
     </View>
-  );
-}export default  function EsqueciSenha() {
-  return (
-    <View style={styles.container}>
-      <Text>Esqueci Senha</Text>
-      <Input
-        placeholder='Email'
-        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-      />
-      <Button
-          title="Enviar"
-          type="outline"
-     />
+  
 
-      <StatusBar style="auto" />
+   );
+}
+function contato({ navigation }) {
+  return (
+    <View>
+      <input placeholder="Nome" />
+      <br />
+      <input placeholder="Email" />
+      <br />
+      <input placeholder="telefone" />
+      <br />
+      <Button title="Salvar" onPress={() => navigation.navigate("home")} />
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+function alterarContato({ route }) {
+  const { contato } = route.params;
+
+  return (
+    <View>
+      <Text>Nome: {contato.nome}</Text>
+      <Text>Telefone: {contato.telefone}</Text>
+      <input placeholder="Nome" />
+      <br />
+      <input placeholder="Email" />
+      <br />
+      <input placeholder="telefone" />
+      <br />
+      <Button title="Editar" onPress={() => alert("Editar contato")} />
+      <Button title="Excluir" onPress={() => alert("Excluir contato")} />
+      
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="inicial" component={telaInicial} />
+        <Stack.Screen name="cadastro" component={cadastro} />
+        <Stack.Screen name="contato" component={contato} />
+        <Stack.Screen name="alterarContato" component={alterarContato} />
+        <Stack.Screen
+          name="Login"
+          component={telaLogin}
+          options={{ headerTitleAlign: "center",
+           
+          }}
+        />
+       <Stack.Screen
+  name="home"
+  component={homeScreen}
+  options={({ navigation }) => ({
+    headerTitleAlign: "center",
+    headerRight: () => (
+      <Button title="+" onPress={() => navigation.navigate("contato")} />
+    ),
+  })}
+/>
+
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
